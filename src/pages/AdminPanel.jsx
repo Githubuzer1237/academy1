@@ -12,12 +12,11 @@ const AdminPanel = () => {
   const [password, setPassword] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Загрузка текущих цен при загрузке компонента
   useEffect(() => {
     fetch('http://localhost:3000/prices')
       .then(response => response.json())
       .then(data => {
-        setPrices(data); // Устанавливаем текущие цены из json-server
+        setPrices(data); 
       });
   }, []);
 
@@ -27,7 +26,7 @@ const AdminPanel = () => {
 
   const savePrices = () => {
     fetch('http://localhost:3000/prices', {
-      method: 'PUT', // Используем PUT для обновления данных
+      method: 'PUT', 
       headers: {
         'Content-Type': 'application/json',
       },
@@ -35,8 +34,8 @@ const AdminPanel = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Сохраненные данные:', data); // Логируем ответ от сервера
-        alert('Цены успешно сохранены!'); // Уведомляем пользователя об успешном сохранении
+        console.log('Сохраненные данные:', data); 
+        alert('Цены успешно сохранены!'); 
       })
       .catch(error => {
         console.error('Ошибка при сохранении данных:', error);
@@ -55,30 +54,30 @@ const AdminPanel = () => {
 
   if (!isAuthenticated) {
     return (
-      <div style={{ padding: '100px' }}>
+      <div style={{ padding: '100px', display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
         <h1>Вход в панель администратора</h1>
         <form onSubmit={handlePasswordSubmit}>
           <label>
             Введите пароль:
-            <input
+            <input className='input'
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          <button type="submit">Войти</button>
+          <button className='btn' type="submit">Войти</button>
         </form>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: '100px' }}>
+    <div style={{ padding: '100px',  display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", textAlign: "center" }}>
       <h1>Панель администратора</h1>
       <div>
         <label>
-          WebCourse:
-          <input
+          Курс веб программирования:
+          <input className='input'
             type="text"
             value={prices.WebCourse || ''}
             onChange={(e) => updatePrice("WebCourse", e.target.value)}
@@ -87,8 +86,8 @@ const AdminPanel = () => {
       </div>
       <div>
         <label>
-          Grafic:
-          <input
+          Курс графического дизайна:
+          <input className='input'
             type="text"
             value={prices.Grafic || ''}
             onChange={(e) => updatePrice("Grafic", e.target.value)}
@@ -97,8 +96,8 @@ const AdminPanel = () => {
       </div>
       <div>
   <label>
-    NodeJs:
-    <input
+    Курс NodeJs:
+    <input className='input'
       type="text"
       value={prices.NodeJs || ''}
       onChange={(e) => updatePrice("NodeJs", e.target.value)}
@@ -107,8 +106,8 @@ const AdminPanel = () => {
 </div>
       <div>
         <label>
-          ScratchSection:
-          <input
+           Курс Scratch:
+          <input className='input'
             type="text"
             value={prices.ScratchSection || ''}
             onChange={(e) => updatePrice("ScratchSection", e.target.value)}
@@ -116,7 +115,7 @@ const AdminPanel = () => {
         </label>
       </div>
       <div>
-        <button onClick={savePrices}>Сохранить изменения</button>
+        <button className='btn' onClick={savePrices}>Сохранить изменения</button>
       </div>
     </div>
   );
